@@ -43,8 +43,15 @@ const login = async (req,res) => {
             if (!is_password) {
               return res.json("Please check password");
             } else {
-                const token = jwt.sign({user: user._id}, 'secretKey')
-                return res.json(token)
+                const token = jwt.sign({ user: user._id }, "secretKey", {
+                  expiresIn: "30d",
+                });
+                res.cookie("jwt", token, {
+                  httpOnly: true,
+                });
+                res.json({
+                  message: "Login successful",
+                });
             }
         } else {
             return res.status(204).json('User not found!')
