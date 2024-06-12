@@ -2,18 +2,18 @@
 
 ## Authentification
 
-### POST /api/register
+### POST /api/user/register
 
 #### Request Body
 ```json
 {
-	"username": "username",
+    "username": "username",
     "email": "email",
     "password": "password"
 }
 ```
 
-### POST /api/login
+### POST /api/user/login
 
 #### Request Body
 ```json
