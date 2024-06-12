@@ -10,7 +10,26 @@ const index = async (req, res) => {
         res.status(500).json({ error: e.message })
     }
 }
+const createPost = async (req, res) => {
+    const { content, tags } = req.body
+    const { user } = req.decodedToken;
+    try {
+        if(content) {
+            const post = await Post.create({
+              content: content,
+              tags: tags,
+              user_id: user,
+            });
+            res.status(201).json({ post });
+        } else {
+            res.status(400).json({ error: "Content is required" });
+        }
+    } catch (e) {
+        res.status(500).json({ error: e.message })
+    }
+}
 
 module.exports = {
-    index
+    index,
+    createPost
 }
