@@ -53,9 +53,30 @@ const findByTags = async ( req, res) => {
     }
 }
 
+const updatePost = async (req, res) => {
+    const { id } = req.params
+    const { content, tags } = req.body
+    const { user } = req.decodedToken;
+    try {
+        const post = await Post.findOneAndUpdate(
+            { _id: id, user_id: user },
+            { content: content, tags: tags },
+            { new: true }
+        )
+        if (post) {
+            res.json({ post })
+        } else {
+            res.status(404).json({ error: 'Post not found or user does not have permission to update' })
+        }
+    } catch (e) {
+        res.status(500).json({ error: e.message })
+    }
+}
+
 module.exports = {
     index,
     createPost,
     findPost,
     findByTags,
+    updatePost
 }
