@@ -22,3 +22,17 @@
     "password": "password"
 }
 ```
+
+## Posts
+
+### GET /api/posts
+
+### POST /api/posts
+
+#### Request Body
+```json
+{
+    "content": "content",
+    "tags": [..."tag"]
+}
+```

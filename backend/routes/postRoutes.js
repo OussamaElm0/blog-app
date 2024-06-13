@@ -6,6 +6,6 @@ const {
 const isAuthenticated = require('../middleware/auth')
 
 router.get('/', index)
-router.post("/store", isAuthenticated, createPost);
+router.post("/", isAuthenticated, createPost);
 
 module.exports = router
