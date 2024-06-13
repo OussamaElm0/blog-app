@@ -36,3 +36,14 @@
     "tags": [..."tag"]
 }
 ```
+
+### GET /api/posts/:id
+
+### POST /api/posts/tags
+
+#### Request Body
+```json
+{
+    "tags": [..."tag"]
+}
+```
