@@ -34,7 +34,7 @@ const findPost = async (req, res) => {
     try {
         const post = await Post.findById(id)
         if (post) {
-            res.json(post)
+            res.json({post})
         } else {
             res.status(404).json({ error: 'Post not found' })
         }
@@ -43,8 +43,19 @@ const findPost = async (req, res) => {
     }
 }
 
+const findByTags = async ( req, res) => {
+    const { tags } = req.body
+    try {
+        const posts = await Post.find({tags: {$in: tags}})
+        res.json({posts})
+    } catch {
+        res.status(500).json({ error: e.message })
+    }
+}
+
 module.exports = {
     index,
     createPost,
     findPost,
+    findByTags,
 }
