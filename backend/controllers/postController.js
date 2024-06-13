@@ -73,10 +73,29 @@ const updatePost = async (req, res) => {
     }
 }
 
+const deletePost = async (req, res) => {
+    const { id } = req.params
+    const { user } = req.decodedToken
+    try {
+        const post = await Post.findOneAndDelete({
+            _id: id,
+            user_id: user
+        }, { new: true })
+        if (post) {
+            res.json({ post })
+        } else {
+            res.status(404).json({ error: 'Post not found or user does not have permission to delete'})
+        }
+    } catch (e) {
+        res.status(500).json({error: e.message})
+    }
+}
+
 module.exports = {
     index,
     createPost,
     findPost,
     findByTags,
-    updatePost
+    updatePost,
+    deletePost
 }

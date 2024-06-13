@@ -4,7 +4,8 @@ const {
     createPost,
     findPost,
     findByTags,
-    updatePost
+    updatePost,
+    deletePost
 } = require('../controllers/postController')
 const isAuthenticated = require('../middleware/auth')
 
@@ -13,5 +14,6 @@ router.post("/", isAuthenticated, createPost);
 router.get("/:id", findPost);
 router.post("/tags", findByTags);
 router.patch("/:id", isAuthenticated, updatePost);
+router.delete("/:id", isAuthenticated, deletePost);
 
 module.exports = router
