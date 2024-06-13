@@ -29,7 +29,22 @@ const createPost = async (req, res) => {
     }
 }
 
+const findPost = async (req, res) => {
+    const { id } = req.params
+    try {
+        const post = await Post.findById(id)
+        if (post) {
+            res.json(post)
+        } else {
+            res.status(404).json({ error: 'Post not found' })
+        }
+    } catch (e) {
+        res.status(500).json({ error: e.message })
+    }
+}
+
 module.exports = {
     index,
-    createPost
+    createPost,
+    findPost,
 }
