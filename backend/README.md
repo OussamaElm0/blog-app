@@ -47,3 +47,15 @@
     "tags": [..."tag"]
 }
 ```
+
+### PATCH /api/posts/:id
+
+#### Request Body
+```json
+{
+    "content": "content",
+    "tags": [..."tag"]
+}
+```
+
+### DELETE /api/posts/:id
