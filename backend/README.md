@@ -2,7 +2,7 @@
 
 ## Authentification
 
-### POST /api/user/register
+### POST /api/auth/register
 
 #### Request Body
 ```json
@@ -13,7 +13,7 @@
 }
 ```
 
-### POST /api/user/login
+### POST /api/auth/login
 
 #### Request Body
 ```json
@@ -22,6 +22,8 @@
     "password": "password"
 }
 ```
+
+### GET /api/auth/logout
 
 ## Posts
 
