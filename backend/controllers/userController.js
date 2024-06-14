@@ -1,4 +1,5 @@
 const User = require('../models/userModel')
+const bcrypt = require('bcrypt')
 
 const allUsers = async (req, res) => {
     try {
@@ -23,7 +24,29 @@ const findUser = async (req, res) => {
     }
 }
 
+const updateUser = async (req, res) => {
+    const { id } = req.params
+    const { email, password } = req.body
+    const { user } = req.decodedToken
+    try {
+        if (id === user) {
+            const hashedPassword = await bcrypt.hash(password, 10)
+            const updatedUser = await User.findByIdAndUpdate(id, {
+                email: email,
+                password: hashedPassword 
+            }, {new: true}
+        )
+            res.json({updatedUser})
+        } else {
+            res.status(403).json({error: 'User does not have permission to update'})
+        }
+    } catch (e) {
+        res.status(500).json({error: e.message})
+    }
+}
+
 module.exports = {
     allUsers,
     findUser,
+    updateUser,
 }

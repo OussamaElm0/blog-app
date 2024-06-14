@@ -31,6 +31,16 @@
 
 ### GET /api/users/:id
 
+### PUT /api/users/:id
+
+#### Request Body
+```json
+{
+    "email": "email",
+    "password": "password"
+}
+```
+
 ## Posts
 
 ### GET /api/posts
