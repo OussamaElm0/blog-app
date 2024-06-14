@@ -41,6 +41,8 @@
 }
 ```
 
+### DELETE /api/users/:id
+
 ## Posts
 
 ### GET /api/posts

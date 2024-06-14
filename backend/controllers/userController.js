@@ -1,5 +1,6 @@
 const User = require('../models/userModel')
 const bcrypt = require('bcrypt')
+const { logout } = require('./authController')
 
 const allUsers = async (req, res) => {
     try {
@@ -45,8 +46,24 @@ const updateUser = async (req, res) => {
     }
 }
 
+const deleteUser = async (req, res) => {
+    const { id } = req.params
+    try {
+        const user = await User.findByIdAndDelete(id)
+        if (user) {
+            res.clearCookie('jwt')
+            res.json({ user });
+        } else {
+            res.status(404).json({error: "User not found"})
+        }
+    } catch (e) {
+        res.status(500).json({error: e.message})
+    }
+}
+
 module.exports = {
     allUsers,
     findUser,
     updateUser,
+    deleteUser,
 }
