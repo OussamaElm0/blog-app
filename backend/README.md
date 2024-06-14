@@ -25,6 +25,12 @@
 
 ### GET /api/auth/logout
 
+## Users
+
+### GET /api/users
+
+### GET /api/users/:id
+
 ## Posts
 
 ### GET /api/posts
