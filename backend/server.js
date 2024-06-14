@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser')
 
 const authRoutes = require('./routes/authRoutes')
 const postRoutes = require('./routes/postRoutes')
+const userRoutes = require('./routes/userRoutes')
 
 //Connect the server with database
 connectDatabase()
@@ -18,4 +19,5 @@ app.use(cookieParser())
 
 //Routes of the application
 app.use('/api/auth',authRoutes)
+app.use('/api/users',userRoutes)
 app.use('/api/posts',postRoutes)
