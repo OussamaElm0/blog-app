@@ -64,9 +64,27 @@ const deleteUser = async (req, res) => {
     }
 }
 
-module.exports = {
-    allUsers,
-    findUser,
-    updateUser,
-    deleteUser,
+//Find user by username
+const findUserByUsername = async (req, res) => {
+    const { username } = req.body
+    try {
+        const user = await User.findOne({
+            username: username
+        })
+        if (user) {
+            res.json({user})
+        } else {
+            res.json({error: "User not found!"})
+        }
+    } catch (e) {
+        res.json({error: e.message})
+    }
 }
+
+module.exports = {
+  allUsers,
+  findUser,
+  updateUser,
+  deleteUser,
+  findUserByUsername,
+};

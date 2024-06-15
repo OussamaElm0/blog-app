@@ -43,6 +43,15 @@
 
 ### DELETE /api/users/:id
 
+### GET /api/users/search/username
+
+#### Request Body
+```json
+{
+    "username": "username"
+}
+```
+
 ## Posts
 
 ### GET /api/posts
