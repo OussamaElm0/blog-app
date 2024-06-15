@@ -79,3 +79,5 @@
 ```
 
 ### DELETE /api/posts/:id
+
+### GET /api/posts/user/:user_id
