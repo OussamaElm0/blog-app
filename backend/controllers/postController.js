@@ -1,4 +1,5 @@
 const Post = require('../models/postModel')
+const User = require('../models/userModel')
 
 const index = async (req, res) => {
     try {
@@ -91,11 +92,31 @@ const deletePost = async (req, res) => {
     }
 }
 
+const findUserPosts = async (req, res) =>  {
+    const { user_id } = req.params
+    try {
+        const user_exist = await User.findById(user_id)
+        if (user_exist) {
+            const posts = await Post.find({
+              user_id,
+            }).sort({
+              created_at: -1,
+            });
+            res.json({ posts });
+        } else {
+            res.status(404).json({error: "User not found"})
+        }
+    } catch (e) {
+        res.json({error: e.message})
+    }
+}
+
 module.exports = {
     index,
     createPost,
     findPost,
     findByTags,
     updatePost,
-    deletePost
+    deletePost,
+    findUserPosts
 }
