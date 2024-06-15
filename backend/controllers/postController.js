@@ -1,6 +1,7 @@
 const Post = require('../models/postModel')
 const User = require('../models/userModel')
 
+//Get all posts
 const index = async (req, res) => {
     try {
         const posts = await Post.find().sort({ 
@@ -11,6 +12,8 @@ const index = async (req, res) => {
         res.status(500).json({ error: e.message })
     }
 }
+
+//Create a new post
 const createPost = async (req, res) => {
     const { content, tags } = req.body
     const { user } = req.decodedToken;
@@ -30,6 +33,7 @@ const createPost = async (req, res) => {
     }
 }
 
+//Find post by id
 const findPost = async (req, res) => {
     const { id } = req.params
     try {
@@ -44,6 +48,7 @@ const findPost = async (req, res) => {
     }
 }
 
+//Find posts by tags
 const findByTags = async ( req, res) => {
     const { tags } = req.body
     try {
@@ -54,10 +59,11 @@ const findByTags = async ( req, res) => {
     }
 }
 
+//Update post
 const updatePost = async (req, res) => {
     const { id } = req.params
     const { content, tags } = req.body
-    const { user } = req.decodedToken;
+    const { user } = req.decodedToken; 
     try {
         const post = await Post.findOneAndUpdate(
             { _id: id, user_id: user },
@@ -74,6 +80,7 @@ const updatePost = async (req, res) => {
     }
 }
 
+//Delete post
 const deletePost = async (req, res) => {
     const { id } = req.params
     const { user } = req.decodedToken
@@ -92,6 +99,7 @@ const deletePost = async (req, res) => {
     }
 }
 
+//Find user's posts
 const findUserPosts = async (req, res) =>  {
     const { user_id } = req.params
     try {

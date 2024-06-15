@@ -1,7 +1,7 @@
 const User = require('../models/userModel')
 const bcrypt = require('bcrypt')
-const { logout } = require('./authController')
 
+//Get all users
 const allUsers = async (req, res) => {
     try {
         const users = await User.find()
@@ -11,6 +11,7 @@ const allUsers = async (req, res) => {
     }
 }
 
+//Find user by id
 const findUser = async (req, res) => {
     const { id } = req.params
     try {
@@ -25,6 +26,7 @@ const findUser = async (req, res) => {
     }
 }
 
+//Update user
 const updateUser = async (req, res) => {
     const { id } = req.params
     const { email, password } = req.body
@@ -46,6 +48,7 @@ const updateUser = async (req, res) => {
     }
 }
 
+//Delete user
 const deleteUser = async (req, res) => {
     const { id } = req.params
     try {

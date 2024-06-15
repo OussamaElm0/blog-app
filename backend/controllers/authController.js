@@ -2,6 +2,7 @@ const User = require('../models/userModel')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
+//Create new user
 const register = async (req, res) => {
     const { username, email, password } = req.body
 
@@ -30,6 +31,7 @@ const register = async (req, res) => {
     }
 }
 
+//Login the user
 const login = async (req,res) => {
     const { email, password } = req.body
 
@@ -61,6 +63,7 @@ const login = async (req,res) => {
     }
 }
 
+//Logout the user and clear cookies
 const logout = (req, res) => {
     res.clearCookie("jwt");
     res.json({
