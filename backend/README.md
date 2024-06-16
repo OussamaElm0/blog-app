@@ -13,6 +13,8 @@
 }
 ```
 
+- Register a new user with a unique username, email, and password.
+
 ### POST /api/auth/login
 
 #### Request Body
@@ -23,13 +25,21 @@
 }
 ```
 
+- Log in an existing user with their email and password.
+
 ### GET /api/auth/logout
+
+- Log out the currently authenticated user.
 
 ## Users
 
 ### GET /api/users
 
+- Retrieve a list of all users.
+
 ### GET /api/users/:id
+
+- Retrieve a specific user by their ID.
 
 ### PUT /api/users/:id
 
@@ -41,7 +51,11 @@
 }
 ```
 
+- Update the email and password of a specific user.
+
 ### DELETE /api/users/:id
+
+- Delete a specific user by their ID.
 
 ### GET /api/users/search/username
 
@@ -52,9 +66,13 @@
 }
 ```
 
+- Search for users by their username.
+
 ## Posts
 
 ### GET /api/posts
+
+- Retrieve a list of all posts.
 
 ### POST /api/posts
 
@@ -66,7 +84,11 @@
 }
 ```
 
+- Create a new post with the given content and tags.
+
 ### GET /api/posts/:id
+
+- Retrieve a specific post by its ID.
 
 ### POST /api/posts/tags
 
@@ -76,6 +98,8 @@
     "tags": [..."tag"]
 }
 ```
+
+- Retrieve posts that have any of the specified tags.
 
 ### PATCH /api/posts/:id
 
@@ -87,6 +111,12 @@
 }
 ```
 
+- Update the content and tags of a specific post.
+
 ### DELETE /api/posts/:id
 
+- Delete a specific post by its ID.
+
 ### GET /api/posts/user/:user_id
+
+- Retrieve posts created by a specific user.
