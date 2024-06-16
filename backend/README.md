@@ -120,3 +120,21 @@
 ### GET /api/posts/user/:user_id
 
 - Retrieve posts created by a specific user.
+
+# Models 
+
+## User
+
+| Field        | Data Type | Constraints |
+|--------------|-----------|-------------|
+| username     | String    | Unique      |
+| email        | String    | Unique      |
+| password     | String    |             |
+
+## Post
+
+| Field        | Data Type | Constraints |
+|--------------|-----------|-------------|
+| content      | String    |             |
+| tags         | Array     |             |
+| user_id      | Integer   |             |
