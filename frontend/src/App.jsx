@@ -8,21 +8,23 @@ export default function App() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    try {
-      (async () => {
-        const { data } = await axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/posts`);
+    const fetchPosts = async () => {
+      try {
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_REACT_APP_API_URL}/posts`
+        );
         setPosts(data);
-      })();
-      console.log(posts);
-    } catch (e) {
-      console.log(e.message);
-    }
-    console.log(env.VITE_REACT_APP_API_URL);
+        console.log(data);
+      } catch (e) {
+        console.log(e.message);
+      }
+    };
+
+    fetchPosts();
   }, []);
 
   return (
     <>
-      <h1>Hello World</h1>
     </>
   );
 }
