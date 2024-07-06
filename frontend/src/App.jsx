@@ -1,30 +1,31 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Posts from "./components/Posts";
+import PostsContext from "./contexts/PostContext";
 const env = import.meta.env;
-
-const PostsContext = createContext();
 
 export default function App() {
   const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const { data } = await axios.get(
-          `${import.meta.env.VITE_REACT_APP_API_URL}/posts`
-        );
-        setPosts(data);
-        console.log(data);
-      } catch (e) {
-        console.log(e.message);
-      }
-    };
+ useEffect(() => {
+   const fetchData = async () => {
+     try {
+       const response = await axios.get(
+         `${import.meta.env.VITE_REACT_APP_API_URL}/posts`
+       );
+       setPosts(response.data);
+       console.log(posts);
+     } catch (e) {
+       console.log(e.message);
+     }
+   };
 
-    fetchPosts();
-  }, []);
+   fetchData();
+ }, []);
 
   return (
-    <>
-    </>
+    <PostsContext.Provider value={posts}>
+      <Posts />
+    </PostsContext.Provider>
   );
 }
