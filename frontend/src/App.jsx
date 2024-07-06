@@ -3,6 +3,10 @@ import axios from "axios";
 import Posts from "./components/Posts";
 import PostsContext from "./contexts/PostContext";
 import "./styles/_fonts.scss"
+import Header from "./components/Header";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import './styles/_globals.scss'
 const env = import.meta.env;
 
 export default function App() {
@@ -12,7 +16,7 @@ export default function App() {
    const fetchData = async () => {
      try {
        const response = await axios.get(
-         `${import.meta.env.VITE_REACT_APP_API_URL}/posts`
+         `${env.VITE_REACT_APP_API_URL}/posts`
        );
        setPosts(response.data);
      } catch (e) {
@@ -25,6 +29,7 @@ export default function App() {
 
   return (
     <PostsContext.Provider value={posts}>
+      <Header />
       <Posts />
     </PostsContext.Provider>
   );
