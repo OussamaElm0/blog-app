@@ -25,7 +25,7 @@ export default function App() {
    };
 
    fetchData();
- }, []);
+ });
 
   return (
     <PostsContext.Provider value={posts}>
