@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import './styles/_globals.scss'
+import { AuthContext, AuthProvider } from "./contexts/AuthContext";
 const env = import.meta.env;
 
 export default function App() {
@@ -28,9 +29,11 @@ export default function App() {
  });
 
   return (
-    <PostsContext.Provider value={posts}>
-      <Header />
-      <Posts />
-    </PostsContext.Provider>
+    <AuthProvider>
+      <PostsContext.Provider value={posts}>
+        <Header />
+        <Posts />
+      </PostsContext.Provider>
+    </AuthProvider>
   );
 }
