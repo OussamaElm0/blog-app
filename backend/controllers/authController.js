@@ -1,78 +1,100 @@
-const User = require('../models/userModel')
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
+const User = require("../models/userModel");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 //Create new user
 const register = async (req, res) => {
-    const { username, email, password } = req.body
+  const { username, email, password } = req.body;
 
-    if( username && email && password ){
-        const user_exist = await User.findOne({
-            username: username,
-            email : email,
-        });
-        if (user_exist) {
-            return res.status(409).json("User already exists")
-        }
-        const hashed_password = await bcrypt.hash(password, 10)
-
-        const user = await User.create({
-            username: username,
-            email: email,
-            password: hashed_password
-        })
-
-        return res.status(201).json({
-        success: "User registered successfully",
-        user: user
-        });
-    } else {
-        return res.json("All fields are required")
+  if (username && email && password) {
+    const user_exist = await User.findOne({
+      username: username,
+      email: email,
+    });
+    if (user_exist) {
+      return res.status(409).json("User already exists");
     }
-}
+    const hashed_password = await bcrypt.hash(password, 10);
+
+    const user = await User.create({
+      username: username,
+      email: email,
+      password: hashed_password,
+    });
+
+    return res.status(201).json({
+      success: "User registered successfully",
+      user: user,
+    });
+  } else {
+    return res.json("All fields are required");
+  }
+};
 
 //Login the user
-const login = async (req,res) => {
-    const { email, password } = req.body
+const login = async (req, res) => {
+  const { email, password } = req.body;
 
-    if (email && password) {
-        const user = await User.findOne({
-            email: email,
-        })
-        if (user) {
-            const is_password = await bcrypt.compare(password, user.password);
+  if (email && password) {
+    const user = await User.findOne({
+      email: email,
+    });
+    if (user) {
+      const is_password = await bcrypt.compare(password, user.password);
 
-            if (!is_password) {
-              return res.json("Please check password");
-            } else {
-                const token = jwt.sign({ user: user._id }, "secretKey", {
-                  expiresIn: "30d",
-                });
-                res.cookie("jwt", token, {
-                  httpOnly: true,
-                });
-                res.json({
-                  message: "Login successful",
-                });
-            }
-        } else {
-            return res.status(204).json('User not found!')
-        }
+      if (!is_password) {
+        return res.json("Please check password");
+      } else {
+        const token = jwt.sign({ user: user._id }, "secretKey", {
+          expiresIn: "30d",
+        });
+        res.cookie("token", token, {
+          httpOnly: true,
+        });
+        res.json({
+          user: user,
+        });
+      }
     } else {
-        return res.json("Please check fields")
+      return res.status(204).json("User not found!");
     }
-}
+  } else {
+    return res.json("Please check fields");
+  }
+};
 
 //Logout the user and clear cookies
 const logout = (req, res) => {
-    res.clearCookie("jwt");
-    res.json({
-      message: "Logged out successfully",
-    });
+  res.clearCookie("token");
+  res.json({
+    message: "Logged out successfully",
+  });
+};
+
+//Check if user is login or not
+const checkLogedUser = async (req, res) => {
+  const token = req.cookies.token
+
+  if(!token){
+    return res.status(401).json({error: "Not authenticated"})
+  }
+
+  try {
+    const decoded = jwt.verify(token, "secretKey");
+    const user = await User.findById(decoded.user).select("-password");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({ user });
+  } catch (err) {
+    res.status(401).json({ message: "Invalid token" });
+  }
 };
 
 module.exports = {
-    register,
-    login,
-    logout
-}
+  register,
+  login,
+  logout,
+  checkLogedUser
+};
