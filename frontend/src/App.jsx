@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Posts from "./components/Posts";
 import PostsContext from "./contexts/PostContext";
+import "./styles/_fonts.scss"
 const env = import.meta.env;
 
 export default function App() {
@@ -14,7 +15,6 @@ export default function App() {
          `${import.meta.env.VITE_REACT_APP_API_URL}/posts`
        );
        setPosts(response.data);
-       console.log(posts);
      } catch (e) {
        console.log(e.message);
      }

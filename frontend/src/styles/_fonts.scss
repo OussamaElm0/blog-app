@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Beiruti:wght@200..900&display=swap');
+
+//Font-family classes
+.pt-sans {
+    font-family: "PT Sans", sans-serif;
+    font-style: normal;
+}
+
+@for $i from 1 through 9 {
+    .beiruti-#{$i} {
+        font-family: "Beiruti", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: #{$i * 100};
+        font-style: normal;
+      }
+}
+
+//Font-weigh values
+$font-weight : (
+    "light": 300,
+    "regular": 400,
+    "medium": 500,
+    "bold": 700
+)
