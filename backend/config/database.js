@@ -1,12 +1,15 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
+require("dotenv").config();
+
+// Temporary measure for testing the connection
 const db_connection =
-  process.env.DB_CONNECTION || "mongodb://127.0.0.1:27017/blog-app";
+  process.env.DB_CONNECTION ;
 
 const connectDatabase = () => {
-    mongoose
-      .connect(db_connection)
-      .then(console.log("Mongo DB connected with server"))
-      .catch((e) => console.log(e.message));
-}
+  mongoose
+    .connect(db_connection)
+    .then(() => console.log("MongoDB connected with server"))
+    .catch((e) => console.log(e.message));
+};
 
-module.exports = connectDatabase
+module.exports = connectDatabase;
