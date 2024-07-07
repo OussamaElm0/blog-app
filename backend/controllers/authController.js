@@ -7,27 +7,40 @@ const register = async (req, res) => {
   const { username, email, password } = req.body;
 
   if (username && email && password) {
-    const user_exist = await User.findOne({
-      username: username,
-      email: email,
-    });
-    if (user_exist) {
-      return res.status(409).json("User already exists");
+    try {
+      const user_exist = await User.findOne({ username, email });
+      if (user_exist) {
+        return res.json({ error: "User already exists" });
+      }
+      const hashed_password = await bcrypt.hash(password, 10);
+
+      const user = await User.create({
+        username,
+        email,
+        password: hashed_password,
+      });
+      return res.json({
+        success: "User created successfully"
+      });
+    } catch (error) {
+      if (error.code === 11000) {
+        // Duplicate key error
+        return res
+          .json({
+            error: "A user with the given username or email already exists.",
+          });
+      } else {
+        // Other errors
+        console.error("Error during user registration:", error);
+        return res
+          .status(500)
+          .json({ error: "An error occurred during registration." });
+      }
     }
-    const hashed_password = await bcrypt.hash(password, 10);
-
-    const user = await User.create({
-      username: username,
-      email: email,
-      password: hashed_password,
-    });
-
-    return res.status(201).json({
-      success: "User registered successfully",
-      user: user,
-    });
   } else {
-    return res.json("All fields are required");
+    return res
+      .status(400)
+      .json({ error: "Username, email, and password are required." });
   }
 };
 

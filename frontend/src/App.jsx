@@ -11,6 +11,7 @@ import AuthContext from "./contexts/AuthContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Cookies from "js-cookie"
+import Register from "./components/Register";
 const env = import.meta.env;
 
 export default function App() {
@@ -20,7 +21,7 @@ export default function App() {
   const guestRoutes = (
     <>
       <Route path="login" element={<Login />} />
-      <Route path="register" element={<h1>Register</h1>}/>
+      <Route path="register" element={<Register />}/>
     </>
   );
 

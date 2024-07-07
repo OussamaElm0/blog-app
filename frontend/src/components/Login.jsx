@@ -3,7 +3,8 @@ import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 import Cookies from "js-cookie"
 import toast, { Toaster } from "react-hot-toast";
-import styles from "../styles/login.module.scss"
+import styles from "../styles/auth.module.scss"
+import { Link } from 'react-router-dom';
 const env = import.meta.env
 
 export default function Login(){
@@ -49,7 +50,7 @@ export default function Login(){
 
     return (
       <>
-        <form onSubmit={handleSubmit} className={styles.form}>
+        <form onSubmit={handleSubmit} className={styles.login_form}>
           <div className="mb-3">
             <label htmlFor="email" className="form-label">
               Email :<span>*</span>
@@ -79,6 +80,9 @@ export default function Login(){
           <button type="submit" className="btn btn-outline-dark">
             Log in{" "}
           </button>
+          <Link to="/register" className={styles.link}>
+            Don't have an account? Register here{" "}
+          </Link>
         </form>
         <Toaster />
       </>
