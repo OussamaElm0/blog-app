@@ -19,7 +19,7 @@ export default function Header() {
 
     const authLinks = (
       <>
-        <Link to="posts/create" className='btn btn-outline-success link-create-post'>
+        <Link to="posts/create" className='btn btn-outline-success link-create-post' style={{width: "fit-content"}}>
           Create post
         </Link>
         <div className='input-group' style={{ width: 'fit-content' }}>
@@ -74,8 +74,10 @@ export default function Header() {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              {isAuthenticated ? authLinks : guestLinks }
+          </div>
         </div>
-        {isAuthenticated ? authLinks : guestLinks }
       </nav>
     );
 }
