@@ -53,6 +53,7 @@ const login = async (req, res) => {
         });
         res.json({
           user: user,
+          token: token
         });
       }
     } else {

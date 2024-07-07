@@ -7,11 +7,28 @@ import Header from "./components/Header";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import './styles/_globals.scss'
-import { AuthContext, AuthProvider } from "./contexts/AuthContext";
+import AuthContext from "./contexts/AuthContext";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./components/Login";
+import Cookies from "js-cookie"
 const env = import.meta.env;
 
 export default function App() {
   const [posts, setPosts] = useState([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(null)
+
+  const guestRoutes = (
+    <>
+      <Route path="login" element={<Login />} />
+      <Route path="register" element={<h1>Register</h1>}/>
+    </>
+  );
+
+  const authRoutes = (
+    <>
+      <Route path="say-hello" element={<h1>Say hello</h1>} />
+    </>
+  )
 
  useEffect(() => {
    const fetchData = async () => {
@@ -28,12 +45,24 @@ export default function App() {
    fetchData();
  });
 
+ useEffect(() => {
+    const tokenExist = Cookies.get('token')
+    setIsAuthenticated(tokenExist ? true : false) 
+  }, [])
+
   return (
-    <AuthProvider>
+    <AuthContext.Provider value={isAuthenticated}>
       <PostsContext.Provider value={posts}>
-        <Header />
-        <Posts />
+        <BrowserRouter>
+          <Header />
+          <Routes>
+            <Route index  element={<Posts />} />
+            {isAuthenticated ? authRoutes : guestRoutes}
+            {/* <Route path="login" element={<Login />} /> */}
+            <Route path="*" element={<h1>Not fount</h1>} />
+          </Routes>
+        </BrowserRouter>
       </PostsContext.Provider>
-    </AuthProvider>
+    </AuthContext.Provider>
   );
 }
