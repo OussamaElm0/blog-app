@@ -8,10 +8,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import './styles/_globals.scss'
 import AuthContext from "./contexts/AuthContext";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./components/Login";
 import Cookies from "js-cookie"
 import Register from "./components/Register";
+import CreatePost from "./components/CreatePost";
 const env = import.meta.env;
 
 export default function App() {
@@ -28,6 +29,7 @@ export default function App() {
   const authRoutes = (
     <>
       <Route path="say-hello" element={<h1>Say hello</h1>} />
+      <Route path="posts/create" element={<CreatePost />} />
     </>
   )
 
@@ -57,10 +59,9 @@ export default function App() {
         <BrowserRouter>
           <Header />
           <Routes>
-            <Route index  element={<Posts />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route index element={<Posts />} />
             {isAuthenticated ? authRoutes : guestRoutes}
-            {/* <Route path="login" element={<Login />} /> */}
-            <Route path="*" element={<h1>Not fount</h1>} />
           </Routes>
         </BrowserRouter>
       </PostsContext.Provider>

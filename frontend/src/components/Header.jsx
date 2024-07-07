@@ -4,10 +4,7 @@ import Cookies from 'js-cookie'
 
 export default function Header() {
     const [isAuthenticated, setIsAuthenticated] = useState()
-    const [username, setUsername] = useState({
-      username: "",
-      email: "",
-    })
+    const [username, setUsername] = useState("")
 
     const guestLinks = (
       <>
@@ -22,6 +19,9 @@ export default function Header() {
 
     const authLinks = (
       <>
+        <Link to="posts/create" className='btn btn-outline-success link-create-post'>
+          Create post
+        </Link>
         <div className='input-group' style={{ width: 'fit-content' }}>
           <label className='input-group-text'>
             @
@@ -52,7 +52,7 @@ export default function Header() {
 
     useEffect(() => {
       if (isAuthenticated) {
-        const userAuthenticated = Cookies.get('username')
+        const userAuthenticated = Cookies.get('user_username')
         setUsername(userAuthenticated)
       }
     },[isAuthenticated])
