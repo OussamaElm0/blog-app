@@ -1,35 +1,70 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Posts from "./components/Posts";
+import PostsContext from "./contexts/PostContext";
+import "./styles/_fonts.scss"
+import Header from "./components/Header";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import './styles/_globals.scss'
+import AuthContext from "./contexts/AuthContext";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Login from "./components/Login";
+import Cookies from "js-cookie"
+import Register from "./components/Register";
+import CreatePost from "./components/CreatePost";
+const env = import.meta.env;
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [posts, setPosts] = useState([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(null)
 
-  return (
+  const guestRoutes = (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Route path="login" element={<Login />} />
+      <Route path="register" element={<Register />}/>
+    </>
+  );
+
+  const authRoutes = (
+    <>
+      <Route path="say-hello" element={<h1>Say hello</h1>} />
+      <Route path="posts/create" element={<CreatePost />} />
     </>
   )
-}
 
-export default App
+ useEffect(() => {
+   const fetchData = async () => {
+     try {
+       const response = await axios.get(
+         `${env.VITE_REACT_APP_API_URL}/posts`
+       );
+       setPosts(response.data);
+     } catch (e) {
+       console.log(e.message);
+     }
+   };
+
+   fetchData();
+ });
+
+ useEffect(() => {
+    const tokenExist = Cookies.get('token')
+    setIsAuthenticated(tokenExist ? true : false) 
+  }, [isAuthenticated])
+
+  return (
+    <AuthContext.Provider value={isAuthenticated}>
+      <PostsContext.Provider value={posts}>
+        <BrowserRouter>
+          <Header />
+          <Routes>
+            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route index element={<Posts />} />
+            {isAuthenticated ? authRoutes : guestRoutes}
+          </Routes>
+        </BrowserRouter>
+      </PostsContext.Provider>
+    </AuthContext.Provider>
+  );
+}

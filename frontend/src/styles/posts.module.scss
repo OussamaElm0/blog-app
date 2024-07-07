@@ -1,0 +1,92 @@
+@import "_colors";
+@import "_fonts";
+
+.page_title {
+    text-align: center;
+    margin: 20px;
+}
+
+.posts {
+    background-color: $white;
+    padding: 20px;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 20px;
+
+    .post {
+        border: 1px solid $grey;
+        border-radius: 5px;
+        width: auto;
+        padding: 10px;
+        flex: 1 1 auto;
+        height: auto;
+
+        .title {
+            font-weight: map-get($font-weight, "bold" );
+            font-size: x-large;
+        }
+
+        .tags {
+            display: flex;
+            flex-flow: row wrap;
+            gap: 5px;
+
+            .tag {
+                background-color: $grey;
+                padding: 5px;
+                border-radius: 5px;
+                font-size: large;
+            }
+        }
+
+        @media (max-width: 768px){
+            & {
+                width: 100%;
+                word-wrap: break-word;
+            }
+        }
+    }    
+}
+
+.create_post_form {
+    display: flex;
+    flex-flow: column wrap;
+    width: 50%;
+    margin: 0 auto;
+    border: 2px solid $grey;
+    border-radius: 5px;
+    padding: 10px;
+
+    .form_group {
+        flex: 1 1 auto;
+
+        label {
+            font-weight: map-get($font-weight, "bold" );
+        }
+
+        input {
+            width: 100%;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid $grey;
+        }
+
+        .add_tag {
+            display: flex;
+            flex-flow: row wrap;
+            gap: 5px;
+
+            input {
+                width: 80%;
+            }
+
+            .btn {
+                width: calc(20% - 5px);
+            }
+        }
+    }
+
+    .submit_btn {
+        width: 100%;
+    }
+}

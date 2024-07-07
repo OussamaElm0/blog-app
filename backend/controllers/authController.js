@@ -7,27 +7,40 @@ const register = async (req, res) => {
   const { username, email, password } = req.body;
 
   if (username && email && password) {
-    const user_exist = await User.findOne({
-      username: username,
-      email: email,
-    });
-    if (user_exist) {
-      return res.status(409).json("User already exists");
+    try {
+      const user_exist = await User.findOne({ username, email });
+      if (user_exist) {
+        return res.json({ error: "User already exists" });
+      }
+      const hashed_password = await bcrypt.hash(password, 10);
+
+      const user = await User.create({
+        username,
+        email,
+        password: hashed_password,
+      });
+      return res.json({
+        success: "User created successfully"
+      });
+    } catch (error) {
+      if (error.code === 11000) {
+        // Duplicate key error
+        return res
+          .json({
+            error: "A user with the given username or email already exists.",
+          });
+      } else {
+        // Other errors
+        console.error("Error during user registration:", error);
+        return res
+          .status(500)
+          .json({ error: "An error occurred during registration." });
+      }
     }
-    const hashed_password = await bcrypt.hash(password, 10);
-
-    const user = await User.create({
-      username: username,
-      email: email,
-      password: hashed_password,
-    });
-
-    return res.status(201).json({
-      success: "User registered successfully",
-      user: user,
-    });
   } else {
-    return res.json("All fields are required");
+    return res
+      .status(400)
+      .json({ error: "Username, email, and password are required." });
   }
 };
 
@@ -43,7 +56,7 @@ const login = async (req, res) => {
       const is_password = await bcrypt.compare(password, user.password);
 
       if (!is_password) {
-        return res.json("Please check password");
+        return res.json({ error: "Please check password" });
       } else {
         const token = jwt.sign({ user: user._id }, "secretKey", {
           expiresIn: "30d",
@@ -53,13 +66,14 @@ const login = async (req, res) => {
         });
         res.json({
           user: user,
+          token: token,
         });
       }
     } else {
-      return res.status(204).json("User not found!");
+      return res.json({ error: "User not found!" });
     }
   } else {
-    return res.json("Please check fields");
+    return res.json({ error: "Please check fields" });
   }
 };
 
@@ -73,10 +87,10 @@ const logout = (req, res) => {
 
 //Check if user is login or not
 const checkLogedUser = async (req, res) => {
-  const token = req.cookies.token
+  const token = req.cookies.token;
 
-  if(!token){
-    return res.status(401).json({error: "Not authenticated"})
+  if (!token) {
+    return res.status(401).json({ error: "Not authenticated" });
   }
 
   try {
@@ -96,5 +110,5 @@ module.exports = {
   register,
   login,
   logout,
-  checkLogedUser
+  checkLogedUser,
 };

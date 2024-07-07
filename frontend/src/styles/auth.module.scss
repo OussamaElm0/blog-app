@@ -1,0 +1,122 @@
+@import "_colors";
+
+.login_form {
+    width: 50%;
+    height: auto;
+    margin: 20px auto;
+    border-radius: 10px;
+    border: 1px solid $black;
+    padding: 20px;
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+        color: $black;
+
+        span {
+            color: red;
+        }
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid $grey;
+        border-radius: 5px;
+        font-size: 1.2rem;
+    }
+
+    button {
+        width:100%;
+    }
+
+    @media (max-width: 768px) {
+        width: 80%;
+    }
+}
+.register_form {
+    width: 70%;
+    height: auto;
+    margin: 20px auto;
+    border-radius: 10px;
+    border: 1px solid $black;
+    padding: 20px;
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+        color: $black;
+        width: 20%;
+    }
+
+    input {
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid $grey;
+        border-radius: 5px;
+        font-size: 1.1rem;
+    }
+
+    .passwords_section {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        gap: 5px;
+        flex: 1 1 100%;
+
+        div {
+            width: 48%;
+
+            label {
+                width: 100%;
+            }
+
+            input {
+                width: 100%;
+            }
+        }
+    }
+
+    & > button {
+        width: 100%;
+    }
+
+    @media (max-width: 768px) {
+        width: 80%;
+
+        label {
+            width: 100%;
+        }
+
+        .passwords_section {
+            flex-flow: column wrap;
+
+            div {
+                width: 100%;
+            }
+        }
+    }
+}
+.link {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 1.1rem;
+    color: $black;
+    text-decoration: none;
+    cursor: pointer;
+    
+    &:hover {
+        text-decoration: underline;
+    }
+}
+.h1 {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 2rem;
+    color: $black;
+
+}
