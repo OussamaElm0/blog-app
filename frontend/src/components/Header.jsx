@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from "react-router-dom"
+import Cookies from 'js-cookie'
 
 export default function Header() {
 
@@ -19,6 +20,11 @@ export default function Header() {
             <span className="navbar-toggler-icon"></span>
           </button>
         </div>
+        <button onClick={() => {
+          Cookies.remove('token')
+        }}>
+          Logout
+        </button>
       </nav>
     );
 }

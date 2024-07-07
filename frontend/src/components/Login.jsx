@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 import Cookies from "js-cookie"
+import toast, { Toaster } from "react-hot-toast";
+import styles from "../styles/login.module.scss"
 const env = import.meta.env
 
 export default function Login(){
@@ -9,7 +11,6 @@ export default function Login(){
         email: "",
         password: ""
     })
-    // const { login } = useContext(AuthContext)
     const navigate = useNavigate()
 
     const handleSubmit = async e => {
@@ -17,17 +18,21 @@ export default function Login(){
         const { email, password } = formData
 
         if(email == "" || password == "") {
-            
+            toast.error('Please check fields')
         } else {
             try {
               const response = await axios.post(
                 `${env.VITE_REACT_APP_API_URL}/auth/login`,
                 formData
               );
-              console.log(response.data);
-            //   login();
-              Cookies.set('token', response.data.token)
-              navigate("/")
+              if (response.data.error) {
+                toast.error(response.data.error);
+                console.log(response.data.error);
+              }else if(response.data.token){
+                console.log(response.data);
+                Cookies.set("token", response.data.token);
+                navigate("/");
+              }
             } catch (e) {
               console.log(e);
             }
@@ -43,29 +48,39 @@ export default function Login(){
     }
 
     return (
-        <>
-            <h1>Login Form </h1>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Email :
-                    <input 
-                        name='email'
-                        type='email'
-                        value={formData.email}
-                        onChange={handleChange}
-                    />
-                </label>
-                <label>
-                    Password : 
-                    <input
-                        name='password'
-                        type='password'
-                        value={formData.password}
-                        onChange={handleChange}
-                    />
-                </label>
-                <button type='submit'>Log in </button>
-            </form>
-        </>
-    )
+      <>
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label">
+              Email :<span>*</span>
+            </label>
+            <input
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              id="email"
+              className="form-control"
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label">
+              Password :<span>*</span>
+            </label>
+            <input
+              name="password"
+              type="password"
+              value={formData.password}
+              onChange={handleChange}
+              id="password"
+              className="form-control"
+            />
+          </div>
+          <button type="submit" className="btn btn-outline-dark">
+            Log in{" "}
+          </button>
+        </form>
+        <Toaster />
+      </>
+    );
 }
