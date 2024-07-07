@@ -43,7 +43,7 @@ const login = async (req, res) => {
       const is_password = await bcrypt.compare(password, user.password);
 
       if (!is_password) {
-        return res.json("Please check password");
+        return res.json({ error: "Please check password" });
       } else {
         const token = jwt.sign({ user: user._id }, "secretKey", {
           expiresIn: "30d",
@@ -53,14 +53,14 @@ const login = async (req, res) => {
         });
         res.json({
           user: user,
-          token: token
+          token: token,
         });
       }
     } else {
-      return res.status(204).json("User not found!");
+      return res.json({ error: "User not found!" });
     }
   } else {
-    return res.json("Please check fields");
+    return res.json({ error: "Please check fields" });
   }
 };
 
@@ -74,10 +74,10 @@ const logout = (req, res) => {
 
 //Check if user is login or not
 const checkLogedUser = async (req, res) => {
-  const token = req.cookies.token
+  const token = req.cookies.token;
 
-  if(!token){
-    return res.status(401).json({error: "Not authenticated"})
+  if (!token) {
+    return res.status(401).json({ error: "Not authenticated" });
   }
 
   try {
@@ -97,5 +97,5 @@ module.exports = {
   register,
   login,
   logout,
-  checkLogedUser
+  checkLogedUser,
 };
