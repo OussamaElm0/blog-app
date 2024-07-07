@@ -38,6 +38,13 @@
                 font-size: large;
             }
         }
+
+        @media (max-width: 768px){
+            & {
+                width: 100%;
+                word-wrap: break-word;
+            }
+        }
     }    
 }
 
