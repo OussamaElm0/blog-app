@@ -4,3 +4,10 @@
 .navbar-brand {
     font-size: x-large;
 }
+.btn.btn-link {
+    color: $black;
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
+}

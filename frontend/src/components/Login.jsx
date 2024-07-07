@@ -28,10 +28,10 @@ export default function Login(){
               );
               if (response.data.error) {
                 toast.error(response.data.error);
-                console.log(response.data.error);
               }else if(response.data.token){
-                console.log(response.data);
                 Cookies.set("token", response.data.token);
+                Cookies.set("user_username", response.data.user.username)
+                Cookies.set("user_email", response.data.user.email)
                 navigate("/");
               }
             } catch (e) {
@@ -50,6 +50,7 @@ export default function Login(){
 
     return (
       <>
+        <h1 className={styles.h1}>Login form</h1>
         <form onSubmit={handleSubmit} className={styles.login_form}>
           <div className="mb-3">
             <label htmlFor="email" className="form-label">

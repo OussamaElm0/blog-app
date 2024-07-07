@@ -3,8 +3,6 @@ import axios from 'axios'
 import toast, { Toaster } from 'react-hot-toast'
 import styles from "../styles/auth.module.scss"
 import { Link, useNavigate } from 'react-router-dom'
-import Cookies from "js-cookie"
-
 
 const env = import.meta.env
 
@@ -66,7 +64,7 @@ export default function Register(){
 
     return (
       <>
-        <h1>Register form</h1>
+        <h1 className={styles.h1}>Register form</h1>
         <form className={styles.register_form} onSubmit={handleSubmit}>
           <div className="mb-3 input-group">
             <label htmlFor="username" className="input-group-text">
