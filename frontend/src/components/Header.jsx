@@ -74,7 +74,7 @@ export default function Header() {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
               {isAuthenticated ? authLinks : guestLinks }
           </div>
         </div>
