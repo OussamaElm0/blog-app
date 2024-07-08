@@ -8,14 +8,16 @@ export default function Header() {
 
     const guestLinks = (
       <>
-        <Link to="register" className='btn btn-link'>
-          Register
-        </Link>
-        <Link to="login" className='btn btn-link'>
-          Login
-        </Link>
+        <div className="header-user-data d-flex ms-auto">
+          <Link to="register" className="btn btn-link">
+            Register
+          </Link>
+          <Link to="login" className="btn btn-link">
+            Login
+          </Link>
+        </div>
       </>
-    )
+    );
 
     const authLinks = (
       <>
