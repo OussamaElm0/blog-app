@@ -7,12 +7,7 @@ const db_connection =
 
 const connectDatabase = () => {
   mongoose
-    .connect(db_connection, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-    })
+    .connect(db_connection)
     .then(() => console.log("MongoDB connected with server"))
     .catch((e) => console.log(e.message));
 };

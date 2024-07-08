@@ -46,12 +46,11 @@ export default function App() {
    };
 
    fetchData();
+   
+   const tokenExist = Cookies.get("token");
+   setIsAuthenticated(tokenExist ? true : false); 
  });
 
- useEffect(() => {
-    const tokenExist = Cookies.get('token')
-    setIsAuthenticated(tokenExist ? true : false) 
-  }, [isAuthenticated])
 
   return (
     <AuthContext.Provider value={isAuthenticated}>
