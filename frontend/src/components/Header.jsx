@@ -19,29 +19,33 @@ export default function Header() {
 
     const authLinks = (
       <>
-        <Link to="posts/create" className='btn btn-outline-success link-create-post' style={{width: "fit-content"}}>
+        <Link
+          to="posts/create"
+          className="btn btn-outline-success link-create-post"
+          style={{ width: "fit-content" }}
+        >
           Create post
         </Link>
-        <div className='input-group' style={{ width: 'fit-content' }}>
-          <label className='input-group-text'>
-            @
-          </label>
-          <input
-            className="form-control"
-            type="text"
-            disabled={true}
-            readOnly={true}
-            value={username}
-          />
+        <div className="header-user-data d-flex ms-auto">
+          <div className="input-group" style={{ width: "fit-content" }}>
+            <label className="input-group-text">@</label>
+            <input
+              className="form-control"
+              type="text"
+              disabled={true}
+              readOnly={true}
+              value={username}
+            />
+          </div>
+          <button
+            onClick={() => {
+              Cookies.remove("token");
+            }}
+            className="btn btn-link"
+          >
+            Logout
+          </button>
         </div>
-        <button
-          onClick={() => {
-            Cookies.remove("token");
-          }}
-          className="btn btn-link"
-        >
-          Logout
-        </button>
       </>
     );
 
