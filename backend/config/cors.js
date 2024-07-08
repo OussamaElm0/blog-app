@@ -1,6 +1,6 @@
 const corsOptions = {
-  origin: "http://localhost:5173",
-  credentials: true, 
+  origin: "https://blog-app-pi-rosy.vercel.app/",
+  credentials: true,
 };
 
 module.exports = corsOptions;
