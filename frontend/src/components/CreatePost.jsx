@@ -15,10 +15,10 @@ export default function CreatePost(){
     const handleSubmit = async e => {
         e.preventDefault()
 
-        setTags(currentTag.split(' '))
         if(content == "") {
             toast.error('The content is required')
         } else {
+            setTags(currentTag.split(" "));
             try {
                 await axios.post(
                   `${env.VITE_REACT_APP_API_URL}/posts`,
@@ -46,7 +46,7 @@ export default function CreatePost(){
     }
     const addToTags = e => {
       e.preventDefault()
-      if (currentTag && !tags.includes(currentTag)) {
+      if (currentTag != "" && !tags.includes(currentTag)) {
         setTags([...tags, currentTag]);
         setCurrentTag('');
       }
@@ -56,38 +56,45 @@ export default function CreatePost(){
       <>
         <h1 className={styles.page_title}>Create a new post</h1>
         <form onSubmit={handleSubmit} className={styles.create_post_form}>
-            <div className={styles.form_group}>
-              <label htmlFor="content" className="form-label">
-                Content:
-              </label>
-              <textarea
-                className="form-control"
-                id="content"
-                rows="3"
-                onChange={handleContent}
-                value={content}
-                name="content"
-              ></textarea>
+          <div className={styles.form_group}>
+            <label htmlFor="content" className="form-label">
+              Content:
+            </label>
+            <textarea
+              className="form-control"
+              id="content"
+              rows="3"
+              onChange={handleContent}
+              value={content}
+              name="content"
+            ></textarea>
+          </div>
+          <div className={styles.form_group}>
+            <label>Tags:</label>
+            <div className={styles.add_tag}>
+              <input name="tags" value={currentTag} onChange={handleTag} />
+              <button
+                onClick={addToTags}
+                className={`btn btn-outline-dark ${styles.btn}`}
+              >
+                Add tag
+              </button>
             </div>
-            <div className={styles.form_group}>
-              <label>Tags:</label>
-              <div className={styles.add_tag}>
-                <input name="tags" value={currentTag} onChange={handleTag} />
-                <button
-                  onClick={addToTags}
-                  className={`btn btn-outline-dark ${styles.btn}`}
-                >
-                  Add tag
-                </button>
-              </div>
+            <div className={styles.show_tags}>
+              {tags.map((tag, index) => (
+                <span key={index} className={`${styles.tag} kanit-3`}>
+                  {tag}
+                </span>
+              ))}
             </div>
-            <button
-              type="submit"
-              className={`btn btn-primary ${styles.submit_btn}`}
-            >
-              Create
-            </button>
-          </form>
+          </div>
+          <button
+            type="submit"
+            className={`btn btn-primary ${styles.submit_btn}`}
+          >
+            Create
+          </button>
+        </form>
         <Toaster />
       </>
     );
