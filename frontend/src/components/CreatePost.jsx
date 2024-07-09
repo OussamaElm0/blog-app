@@ -56,38 +56,47 @@ export default function CreatePost(){
       <>
         <h1 className={styles.page_title}>Create a new post</h1>
         <form onSubmit={handleSubmit} className={styles.create_post_form}>
-            <div className={styles.form_group}>
-              <label htmlFor="content" className="form-label">
-                Content:
-              </label>
-              <textarea
-                className="form-control"
-                id="content"
-                rows="3"
-                onChange={handleContent}
-                value={content}
-                name="content"
-              ></textarea>
-            </div>
-            <div className={styles.form_group}>
-              <label>Tags:</label>
-              <div className={styles.add_tag}>
-                <input name="tags" value={currentTag} onChange={handleTag} />
-                <button
-                  onClick={addToTags}
-                  className={`btn btn-outline-dark ${styles.btn}`}
-                >
-                  Add tag
-                </button>
+          <div className={styles.form_group}>
+            <label htmlFor="content" className="form-label">
+              Content:
+            </label>
+            <textarea
+              className="form-control"
+              id="content"
+              rows="3"
+              onChange={handleContent}
+              value={content}
+              name="content"
+            ></textarea>
+          </div>
+          <div className={styles.form_group}>
+            <label>Tags:</label>
+            <div className={styles.add_tag}>
+              <input name="tags" value={currentTag} onChange={handleTag} />
+              <button
+                onClick={addToTags}
+                className={`btn btn-outline-dark ${styles.btn}`}
+              >
+                Add tag
+              </button>
+              <div className={styles.tags_show}>
+                {tags.map((tag, index) => {
+                  return (
+                    <span key={index} className={`${styles.tag} kanit-3`}>
+                      {tag}
+                    </span>
+                  );
+                })}
               </div>
             </div>
-            <button
-              type="submit"
-              className={`btn btn-primary ${styles.submit_btn}`}
-            >
-              Create
-            </button>
-          </form>
+          </div>
+          <button
+            type="submit"
+            className={`btn btn-primary ${styles.submit_btn}`}
+          >
+            Create
+          </button>
+        </form>
         <Toaster />
       </>
     );

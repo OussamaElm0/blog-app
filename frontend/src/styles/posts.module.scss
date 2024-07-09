@@ -83,6 +83,19 @@
             .btn {
                 width: calc(20% - 5px);
             }
+
+            .tags_show {
+                display: flex;
+                flex-flow: row wrap;
+                gap: 5px;
+
+                .tag {
+                    background-color: $grey;
+                    padding: 5px;
+                    border-radius: 5px;
+                }
+            
+            }
         }
     }
 
@@ -106,6 +119,19 @@
     
                 .btn {
                     width: 100%;
+                }
+
+                .tags_show {
+                    display: flex;
+                    flex-flow: row wrap;
+                    gap: 5px;
+
+                    .tag {
+                        background-color: $grey;
+                        padding: 5px;
+                        border-radius: 5px;
+                        font-size: large;
+                    }
                 }
             }
         }
