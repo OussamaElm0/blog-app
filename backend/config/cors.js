@@ -1,5 +1,5 @@
 const corsOptions = {
-  origin: ["blog-app-pi-rosy.vercel.app/", "http://localhost:5173/"],
+  origin: "*",
   credentials: true,
 };
 
