@@ -89,4 +89,26 @@
     .submit_btn {
         width: 100%;
     }
+
+    @media (max-width: 768px){
+        & {
+            width: 90%;
+        }
+
+        .form_group {
+            .add_tag {
+                flex-flow: column wrap;
+                margin: 5px;
+    
+                input {
+                    width: 100%;
+                }
+    
+                .btn {
+                    width: 100%;
+                }
+            }
+        }
+        
+    }
 }
