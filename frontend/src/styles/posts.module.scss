@@ -24,6 +24,11 @@
         .title {
             font-weight: map-get($font-weight, "bold" );
             font-size: x-large;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
         }
 
         .tags {

@@ -13,6 +13,7 @@ import Login from "./components/Login";
 import Cookies from "js-cookie"
 import Register from "./components/Register";
 import CreatePost from "./components/CreatePost";
+import ShowPost from "./components/ShowPost";
 const env = import.meta.env;
 
 export default function App() {
@@ -60,6 +61,7 @@ export default function App() {
           <Routes>
             <Route path="*" element={<Navigate to="/" replace />} />
             <Route index element={<Posts />} />
+            <Route path="posts/:post_id" element={<ShowPost />} />
             {isAuthenticated ? authRoutes : guestRoutes}
           </Routes>
         </BrowserRouter>
