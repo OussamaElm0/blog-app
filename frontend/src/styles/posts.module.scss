@@ -177,6 +177,18 @@
         display: flex;
         flex-flow: column wrap;
         gap: 10px;
+        height: 70vh;
+        overflow: scroll;
+
+            &::-webkit-scrollbar {
+                width: 0.5rem;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: #2EC4B6;
+                border-radius: 5px;
+            }
+
 
         .post {
             width: 100%;
