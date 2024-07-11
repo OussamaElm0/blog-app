@@ -29,16 +29,16 @@ export default function Header() {
           Create post
         </Link>
         <div className="header-user-data d-flex ms-auto">
-          <div className="input-group" style={{ width: "fit-content" }}>
+          <Link to="profile" className="input-group profile-link" >
             <label className="input-group-text">@</label>
-            <input
+            <span
               className="form-control"
               type="text"
               disabled={true}
               readOnly={true}
-              value={username}
+              children={username}
             />
-          </div>
+          </Link>
           <button
             onClick={() => {
               Cookies.remove("token");

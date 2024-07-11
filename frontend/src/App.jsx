@@ -14,6 +14,7 @@ import Cookies from "js-cookie"
 import Register from "./components/Register";
 import CreatePost from "./components/CreatePost";
 import ShowPost from "./components/ShowPost";
+import Profile from "./components/Profile";
 const env = import.meta.env;
 
 export default function App() {
@@ -29,8 +30,8 @@ export default function App() {
 
   const authRoutes = (
     <>
-      <Route path="say-hello" element={<h1>Say hello</h1>} />
       <Route path="posts/create" element={<CreatePost />} />
+      <Route path="profile" element={<Profile />} />
     </>
   )
 

@@ -20,3 +20,15 @@
         margin: 5px;
     }
 }
+.profile-link {
+    font-size: large;
+    text-decoration: none;
+    color: $black;
+    width: fit-content;
+
+    input, label {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

@@ -29,6 +29,7 @@ export default function Login(){
               if (response.data.error) {
                 toast.error(response.data.error);
               }else if(response.data.token){
+                Cookies.set('_id', response.data.user._id)
                 Cookies.set("token", response.data.token);
                 Cookies.set("user_username", response.data.user.username)
                 Cookies.set("user_email", response.data.user.email)
