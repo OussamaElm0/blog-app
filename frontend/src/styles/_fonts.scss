@@ -11,7 +11,7 @@
 @for $i from 1 through 9 {
     .beiruti-#{$i} {
         font-family: "Beiruti", sans-serif;
-        font-optical-sizing: auto;
+        font-otical-sizing: auto;
         font-weight: #{$i * 100};
         font-style: normal;
       }
