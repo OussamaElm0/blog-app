@@ -191,6 +191,25 @@
             }
         }
     }
+    
+    @media (max-width: 768px){
+        & {
+            flex-flow: column wrap;
+        }
+
+        .post {
+            width: 100%;
+        }
+
+        .other_posts {
+            width: 100%;
+
+            .post {
+                display: none;
+            }
+        }
+        
+    }
 }
 .loading {
     position: absolute;
