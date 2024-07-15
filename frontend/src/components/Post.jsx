@@ -9,7 +9,7 @@ export default function Post(props){
       <div className={`${styles.post}`}>
         <Link to={`posts/${_id}`} className={`${styles.title} h1 pt-sans`}>
           "{content}"
-        </Link>
+        </Link>k
         <div className={`${styles.tags}`}>
           {tags.map((tag, index) => {
             return (
